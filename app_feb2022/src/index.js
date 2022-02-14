@@ -35,7 +35,7 @@ const App = () => {
       : 
       <div>
         <p>No has iniciado sesión</p>
-        <FormularioInicioSesion/>
+        <FormularioInicioSesion cambiarEstadoSesion={cambiarEstadoSesion}/>
         {/* <button onClick={() => cambiarEstadoSesion(true)}>Iniciar Sesión</button> */}
       </div>
       }

@@ -1,24 +1,45 @@
 import React, {useState} from "react";
 
-const FormularioInicioSesion = () => {
+const FormularioInicioSesion = (props) => {
     const [usuario, cambiarUsuario] = useState('');
     const [password, cambiarPassword] = useState('');
 
-    const onChangeUsuario = (evento) => {
-        cambiarUsuario(evento.target.value);
+    // const onChangeUsuario = (evento) => {
+    //     cambiarUsuario(evento.target.value);
+    // }
+    // const onChangePassword = (evento) => {
+    //     cambiarPassword(evento.target.value);
+    // }
+    /* Esta función global sirve para controlar
+    el estado tanto del nombre de usuario como de
+    la contraseña */
+    const onChange = (evento) => {
+        if(evento.target.name === 'usuario'){
+            cambiarUsuario(evento.target.value);
+        } else if (evento.target.name === 'password'){
+            cambiarPassword(evento.target.value);
+        }
     }
-    const onChangePassword = (evento) => {
-        cambiarPassword(evento.target.value);
+
+    const onSubmit = (e) => {
+        /* Para evitar el comportamiento por 
+        defecto, que es enviar los datos*/
+        e.preventDefault();
+        
+        if(usuario === "Ruedalibre" && password === "123"){
+            props.cambiarEstadoSesion(true);
+        } else {
+            alert('Datos ingresados son incorrectos');
+            /* Para que el campo del input quede de nuevo 
+            en blanco, en caso de que el usuario ingrese
+            los datos incorrectos */
+            cambiarUsuario('');
+            cambiarPassword('');
+        }
     }
 
     return ( 
-        <form action="">
-            {/* Estas líneas de usuario y contraseña 
-            permitirán ver en pantalla 
-            la información que el usuario va ingresando 
-            en los campos de input*/}
-            <p>Usuario: {usuario}</p>
-            <p>Contraseña: {password}</p>
+        <form action="" onSubmit={onSubmit}>
             <div>
                 <label htmlFor="usuario">Usuario</label>
                 <input 
@@ -29,7 +50,16 @@ const FormularioInicioSesion = () => {
                     /* La (e) hace referencia al parámetro evento
                      y contiene información del elemento que 
                     recibió el cambio */
-                    onChange={onChangeUsuario}
+                    onChange={onChange}
+                />
+                <input 
+                    type="checkbox" 
+                    name="" 
+                    id="" 
+                    checked="true"
+                    onChange={
+                        
+                    }
                 />
             </div>
             <div>
@@ -39,7 +69,7 @@ const FormularioInicioSesion = () => {
                     name="password" 
                     id="password"
                     value={password}
-                    onChange={onChangePassword}
+                    onChange={onChange}
                 />
             </div>
             <button type="submit">Iniciar Sesión</button>
