@@ -57,9 +57,6 @@ const FormularioInicioSesion = (props) => {
                     name="" 
                     id="" 
                     checked="true"
-                    onChange={
-                        
-                    }
                 />
             </div>
             <div>

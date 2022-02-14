@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 // En esta sección también se deben importar los componentes
 import Usuario from './componentes/Usuario';
 import FormularioInicioSesion from './componentes/FormularioInicioSesion';
+import ContadorClass from './componentes/ContadorClass'
 
 // IMPORTACIONES INICIALES
 /* Los elementos JSX pueden almacenar código 
@@ -16,7 +17,7 @@ mayúscula. Si el nombre está compuesto por varias palabras,
 se debe usar notación tipo CamelCase */
 
 const App = () => {
-  const [sesion, cambiarEstadoSesion] = useState(false);
+  const [sesion, cambiarEstadoSesion] = useState(true);
     
 
   return (
@@ -30,11 +31,15 @@ const App = () => {
         {/* Los componentes se insertan con una notación similar 
         a las etiquetas HTML */}
         <Usuario/>
+        <ContadorClass/>
         <button onClick={() => cambiarEstadoSesion(false)}>Cerrar Sesión</button>
       </div>
       : 
       <div>
         <p>No has iniciado sesión</p>
+        {/* En esta parte estoy llamando el formulario pero le estoy
+        insertando el atributo de cambiar el estado de la sesión
+        para que me permita cambiar de un estado al otro, según el caso */}
         <FormularioInicioSesion cambiarEstadoSesion={cambiarEstadoSesion}/>
         {/* <button onClick={() => cambiarEstadoSesion(true)}>Iniciar Sesión</button> */}
       </div>
