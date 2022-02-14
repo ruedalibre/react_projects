@@ -5,6 +5,8 @@ import Usuario from './componentes/Usuario';
 import FormularioInicioSesion from './componentes/FormularioInicioSesion';
 import ContadorClass from './componentes/ContadorClass'
 import ContadorFuncional from './componentes/ContadorFuncional';
+/* De esta forma importo los estilos css */
+import './index.css';
 
 // IMPORTACIONES INICIALES
 /* Los elementos JSX pueden almacenar código 
@@ -26,7 +28,7 @@ const App = () => {
     con la notación <> </> y cumplen la misma función que un div*/
     
     /* PARA USAR CON EL MÉTODO 2 usando condicional ternario */
-    <>
+    <div className='contenedor'>
       {sesion === true ? 
       <div>
         {/* Los componentes se insertan con una notación similar 
@@ -34,13 +36,12 @@ const App = () => {
         <Usuario/>
         {/* Puedo acceder a la clase Contador y ponerle en qué medida
         quiero que se incremente y disminuya el contador */}
-        <ContadorClass cantidadAIncrementar={10} cantidadADisminuir={2}/>
-        {/* <ContadorFuncional cantidadAIncrementar={100} cantidadADisminuir={20}/> */}
+        {/* <ContadorClass cantidadAIncrementar={10} cantidadADisminuir={2}/> */}
+        <ContadorFuncional cantidadAIncrementar={100} cantidadADisminuir={20}/>
         <button onClick={() => cambiarEstadoSesion(false)}>Cerrar Sesión</button>
       </div>
       : 
       <div>
-        <p>No has iniciado sesión</p>
         {/* En esta parte estoy llamando el formulario pero le estoy
         insertando el atributo de cambiar el estado de la sesión
         para que me permita cambiar de un estado al otro, según el caso */}
@@ -48,7 +49,7 @@ const App = () => {
         {/* <button onClick={() => cambiarEstadoSesion(true)}>Iniciar Sesión</button> */}
       </div>
       }
-    </>
+    </div>
   );
 };
 

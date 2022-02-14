@@ -17,8 +17,8 @@ const ContadorFuncional = (props) => {
             <h1>Contador: {cuenta}</h1>
             {/* Le puedo especificar entre paréntesis en 
             qué medida incrementar el contador */}
-            <button onClick={() => incrementar(props.cantidadAIncrementar)}>Incrementar</button>
-            <button onClick={() => disminuir(props.cantidadADisminuir)}>Disminuir</button>
+            <button className="button" onClick={() => incrementar(props.cantidadAIncrementar)}>Incrementar</button>
+            <button className="button" onClick={() => disminuir(props.cantidadADisminuir)}>Disminuir</button>
         </div>
     );
 }

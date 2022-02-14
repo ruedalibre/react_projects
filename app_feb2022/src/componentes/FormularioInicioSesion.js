@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import './FormularioInicioSesion.css';
 
 const FormularioInicioSesion = (props) => {
     const [usuario, cambiarUsuario] = useState('');
@@ -39,9 +40,10 @@ const FormularioInicioSesion = (props) => {
     }
 
     return ( 
-        <form action="" onSubmit={onSubmit}>
+        <form action="" onSubmit={onSubmit} className="formulario">
+            <h1>No has iniciado sesión</h1>
             <div>
-                <label htmlFor="usuario">Usuario</label>
+                <label htmlFor="usuario"className="label">Usuario</label>
                 <input 
                     type="text" 
                     name="usuario"
@@ -51,25 +53,21 @@ const FormularioInicioSesion = (props) => {
                      y contiene información del elemento que 
                     recibió el cambio */
                     onChange={onChange}
-                />
-                <input 
-                    type="checkbox" 
-                    name="" 
-                    id="" 
-                    checked="true"
+                    className="input"
                 />
             </div>
             <div>
-                <label htmlFor="password">Contraseña</label>
+                <label htmlFor="password"className="label">Contraseña</label>
                 <input 
                     type="password" 
                     name="password" 
                     id="password"
                     value={password}
                     onChange={onChange}
+                    className="input"
                 />
             </div>
-            <button type="submit">Iniciar Sesión</button>
+            <button type="submit" className="button">Iniciar Sesión</button>
         </form>
      );
 }
