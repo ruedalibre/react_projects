@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Usuario from './componentes/Usuario';
 import FormularioInicioSesion from './componentes/FormularioInicioSesion';
 import ContadorClass from './componentes/ContadorClass'
+import ContadorFuncional from './componentes/ContadorFuncional';
 
 // IMPORTACIONES INICIALES
 /* Los elementos JSX pueden almacenar código 
@@ -31,7 +32,10 @@ const App = () => {
         {/* Los componentes se insertan con una notación similar 
         a las etiquetas HTML */}
         <Usuario/>
-        <ContadorClass/>
+        {/* Puedo acceder a la clase Contador y ponerle en qué medida
+        quiero que se incremente y disminuya el contador */}
+        <ContadorClass cantidadAIncrementar={10} cantidadADisminuir={2}/>
+        {/* <ContadorFuncional cantidadAIncrementar={100} cantidadADisminuir={20}/> */}
         <button onClick={() => cambiarEstadoSesion(false)}>Cerrar Sesión</button>
       </div>
       : 
