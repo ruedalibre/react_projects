@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
+// En esta sección también se deben importar los componentes
 import Usuario from './componentes/Usuario';
+import FormularioInicioSesion from './componentes/FormularioInicioSesion';
+
 // IMPORTACIONES INICIALES
 /* Los elementos JSX pueden almacenar código 
 javascript y a partir de esto puedo crear 
 plantillas para trabajar de una forma muy 
 dinámica en el diseño de la aplicación */
-const sesion = true;
 
 /* Creación de una FUNCIÓN con COMPONENTES: el nombre 
 de los compoonentes siempre debe comenzar con letra 
@@ -14,6 +16,9 @@ mayúscula. Si el nombre está compuesto por varias palabras,
 se debe usar notación tipo CamelCase */
 
 const App = () => {
+  const [sesion, cambiarEstadoSesion] = useState(false);
+    
+
   return (
     /* Los div se pueden se pueden sintetizar como "fragmentos"
     con la notación <> </> y cumplen la misma función que un div*/
@@ -21,17 +26,20 @@ const App = () => {
     /* PARA USAR CON EL MÉTODO 2 usando condicional ternario */
     <>
       {sesion === true ? 
-      <>
+      <div>
         {/* Los componentes se insertan con una notación similar 
         a las etiquetas HTML */}
         <Usuario/>
-        <Usuario/>
-        <Usuario/>
-        <Usuario/>
-      </>
+        <button onClick={() => cambiarEstadoSesion(false)}>Cerrar Sesión</button>
+      </div>
       : 
-      <p>No has iniciado sesión</p>}
-      </>
+      <div>
+        <p>No has iniciado sesión</p>
+        <FormularioInicioSesion/>
+        {/* <button onClick={() => cambiarEstadoSesion(true)}>Iniciar Sesión</button> */}
+      </div>
+      }
+    </>
   );
 };
 

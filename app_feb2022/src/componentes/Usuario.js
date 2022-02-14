@@ -1,14 +1,14 @@
 import React from "react";
-import {TituloAzul, TituloRojo} from "./Titulo";
+import {Titulo} from "./Titulo";
 
 const Usuario = () =>  {
-    const pais = 'Irlanda';
+    const pais = null;
     const amigos = ['Juan Gonzalo ', 'Mauricio ', 'Juan David '];
 
     return(
       <div>
-        <TituloAzul/>
-        <TituloRojo/>
+        <Titulo usuario="Carlos"/>
+        <Titulo usuario="Mauricio" color="blue"/>
         {pais && <p>Página de {pais}</p>}
         <p>Esta es tu lista de contactos</p>
         <ul>
