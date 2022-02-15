@@ -2,6 +2,7 @@ import React, {useState} from "react";
 /* Para trabajar los estilos css por módulos, las 
 importaciones se deben hacer de esta forma */
 import styles from './FormularioInicioSesion.module.css';
+import Button from "../elementos/Button";
 
 const FormularioInicioSesion = (props) => {
     const [usuario, cambiarUsuario] = useState('');
@@ -69,7 +70,8 @@ const FormularioInicioSesion = (props) => {
                     className={styles.input}
                 />
             </div>
-            <button type="submit" className={styles.button}>Iniciar Sesión</button>
+            {/* <button type="submit" className={styles.button}>Iniciar Sesión</button> */}
+            <Button type="submit">Iniciar Sesión</Button>
         </form>
      );
 }

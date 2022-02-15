@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import styles from './ContadorFuncional.module.css';
+import Button from "../elementos/Button";
 
 const ContadorFuncional = (props) => {
     /* cuenta = cuenta actual 
@@ -18,8 +19,10 @@ const ContadorFuncional = (props) => {
             <h1>Contador: {cuenta}</h1>
             {/* Le puedo especificar entre paréntesis en 
             qué medida incrementar el contador */}
-            <button className={styles.button} onClick={() => incrementar(props.cantidadAIncrementar)}>Incrementar</button>
-            <button className={styles.button} onClick={() => disminuir(props.cantidadADisminuir)}>Disminuir</button>
+            {/* <button className={styles.button} onClick={() => incrementar(props.cantidadAIncrementar)}>Incrementar</button>
+            <button className={styles.button} onClick={() => disminuir(props.cantidadADisminuir)}>Disminuir</button> */}
+            <Button onClick={() => incrementar(props.cantidadAIncrementar)}>Incrementar</Button>
+            <Button onClick={() => disminuir(props.cantidadADisminuir)}>Disminuir</Button>
         </div>
     );
 }
