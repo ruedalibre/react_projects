@@ -40,7 +40,7 @@ const App = () => {
         {/* <ContadorClass cantidadAIncrementar={10} cantidadADisminuir={2}/> */}
         <ContadorFuncional cantidadAIncrementar={100} cantidadADisminuir={20}/>
         {/* <button onClick={() => cambiarEstadoSesion(false)}>Cerrar Sesión</button> */}
-        <Button onClick={() => cambiarEstadoSesion(false)}>Cerrar Sesión</Button>
+        <Button largo marginTop onClick={() => cambiarEstadoSesion(false)}>Cerrar Sesión</Button>
       </div>
       : 
       <div>

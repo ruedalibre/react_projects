@@ -21,8 +21,10 @@ const ContadorFuncional = (props) => {
             qué medida incrementar el contador */}
             {/* <button className={styles.button} onClick={() => incrementar(props.cantidadAIncrementar)}>Incrementar</button>
             <button className={styles.button} onClick={() => disminuir(props.cantidadADisminuir)}>Disminuir</button> */}
-            <Button onClick={() => incrementar(props.cantidadAIncrementar)}>Incrementar</Button>
-            <Button onClick={() => disminuir(props.cantidadADisminuir)}>Disminuir</Button>
+            {/* La propiedad "negro" es un estilo que está definido 
+            en el comoponente Botón */}
+            <Button negro marginRight onClick={() => incrementar(props.cantidadAIncrementar)}>Incrementar</Button>
+            <Button negro onClick={() => disminuir(props.cantidadADisminuir)}>Disminuir</Button>
         </div>
     );
 }
