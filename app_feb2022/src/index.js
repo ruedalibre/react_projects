@@ -8,6 +8,7 @@ import ContadorFuncional from './componentes/ContadorFuncional';
 /* De esta forma importo los estilos css */
 import './index.css';
 import Button from './elementos/Button';
+import EjemploUseReducer from './componentes/EjemploUseReducer';
 
 // IMPORTACIONES INICIALES
 /* Los elementos JSX pueden almacenar código 
@@ -35,10 +36,11 @@ const App = () => {
         {/* Los componentes se insertan con una notación similar 
         a las etiquetas HTML */}
         <Usuario/>
+        <EjemploUseReducer/>
         {/* Puedo acceder a la clase Contador y ponerle en qué medida
         quiero que se incremente y disminuya el contador */}
         {/* <ContadorClass cantidadAIncrementar={10} cantidadADisminuir={2}/> */}
-        <ContadorFuncional cantidadAIncrementar={100} cantidadADisminuir={20}/>
+        {/* <ContadorFuncional cantidadAIncrementar={100} cantidadADisminuir={20}/> */}
         {/* <button onClick={() => cambiarEstadoSesion(false)}>Cerrar Sesión</button> */}
         <Button largo marginTop onClick={() => cambiarEstadoSesion(false)}>Cerrar Sesión</Button>
       </div>
