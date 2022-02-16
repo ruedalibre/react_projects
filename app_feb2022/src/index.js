@@ -9,6 +9,7 @@ import ContadorFuncional from './componentes/ContadorFuncional';
 import './index.css';
 import Button from './elementos/Button';
 import EjemploUseReducer from './componentes/EjemploUseReducer';
+import Blog from './componentes/Blog';
 
 // IMPORTACIONES INICIALES
 /* Los elementos JSX pueden almacenar código 
@@ -36,6 +37,7 @@ const App = () => {
         {/* Los componentes se insertan con una notación similar 
         a las etiquetas HTML */}
         <Usuario/>
+        <Blog/>
         <EjemploUseReducer/>
         {/* Puedo acceder a la clase Contador y ponerle en qué medida
         quiero que se incremente y disminuya el contador */}
