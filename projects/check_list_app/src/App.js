@@ -23,15 +23,26 @@ const App = () => {
       }
     ]
   ); 
+  /* Creo un estado que me muestra y oculta 
+  las tareas completadas */
+  const [mostrarCompletadas, cambiarMostrarCompletadas] =useState(true);
+
 
   console.log(tareas);
 
   return (
     <div className="contenedor">
-      <Header/>
+      <Header 
+        mostrarCompletadas={mostrarCompletadas} 
+        cambiarMostrarCompletadas={cambiarMostrarCompletadas}
+      />
       <FormularioTareas tareas={tareas} cambiarTareas={cambiarTareas}/>
       {/* Aquí debo pasar la propiedad y el valor */}
-      <ListaTareas tareas={tareas} cambiarTareas={cambiarTareas}/>
+      <ListaTareas 
+        tareas={tareas} 
+        cambiarTareas={cambiarTareas}
+        mostrarCompletadas={mostrarCompletadas}
+        />
     </div>
   );
 }

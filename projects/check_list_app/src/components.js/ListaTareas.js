@@ -1,7 +1,7 @@
 import React from "react";
 import Tarea from "./Tarea";
 
-const ListaTareas = ({tareas, cambiarTareas}) => {
+const ListaTareas = ({tareas, cambiarTareas, mostrarCompletadas}) => {
     /* Dado que ListaTareas es el padre de Tareas, 
     voy a colocar en su interior las funciones 
     que modifican las Tarea */
@@ -57,18 +57,33 @@ const ListaTareas = ({tareas, cambiarTareas}) => {
             {/* Aquí hago el llamado de las tareas. 
             Si hay tareas guardadas, las muestra en 
             una lista */}
-            {
-            tareas.length > 0 ? tareas.map((tarea) => {
-                return <Tarea 
-                            key={tarea.id}
-                            tarea={tarea}
-                            /* De esta manera ya puedo acceder 
-                            a las funciones de toggle y editar
-                            tarea*/
-                            toggleCompletada={toggleCompletada}
-                            editarTarea={editarTarea}
-                            borrarTarea={borrarTarea}
-                        />
+            {tareas.length > 0 ? tareas.map((tarea) => {
+                /* Este condicional define si se muestran 
+                o no las tareas completadas al presionar 
+                el botón mostrar completadas del header */
+                if(mostrarCompletadas){
+                    return <Tarea 
+                                key={tarea.id}
+                                tarea={tarea}
+                                /* De esta manera ya puedo acceder 
+                                a las funciones de toggle y editar
+                                tarea*/
+                                toggleCompletada={toggleCompletada}
+                                editarTarea={editarTarea}
+                                borrarTarea={borrarTarea}
+                            />
+                /* Si la tarea no está completada, la devuelve */
+                } else if(!tarea.completada) {
+                    return <Tarea 
+                                key={tarea.id}
+                                tarea={tarea}
+                                toggleCompletada={toggleCompletada}
+                                editarTarea={editarTarea}
+                                borrarTarea={borrarTarea}
+                            />
+                }
+                /* Si la tarea está completada, la oculta*/
+                return;
             })
             /* Si no hay tareas guardadas, muestra el 
             respectivo mensaje */
