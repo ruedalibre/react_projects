@@ -1,4 +1,5 @@
 import React from "react";
+import Tarea from "./Tarea";
 
 const ListaTareas = ({tareas}) => {
     return (
@@ -8,7 +9,10 @@ const ListaTareas = ({tareas}) => {
             una lista */}
             {
             tareas.length > 0 ? tareas.map((tarea) => {
-                return <li key={tarea.id}>{tarea.texto}</li>
+                return <Tarea 
+                            key={tarea.id}
+                            tarea={tarea}
+                        />
             })
             /* Si no hay tareas guardadas, muestra el 
             respectivo mensaje */

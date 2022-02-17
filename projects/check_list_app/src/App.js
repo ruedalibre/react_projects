@@ -11,16 +11,16 @@ const App = () => {
     [
       /* Construcción de objetos tarea dentro 
       de un arreglo especificando id, tarea y su estado */
-      // {
-      //   id: 1,
-      //   texto: 'Lavar la ropa',
-      //   completada: false
-      // },
-      // {
-      //   id: 2,
-      //   texto: 'Grabar tutorial',
-      //   completada: false
-      // }
+      {
+        id: 1,
+        texto: 'Lavar la ropa',
+        completada: false
+      },
+      {
+        id: 2,
+        texto: 'Grabar tutorial',
+        completada: false
+      }
     ]
   ); 
 
