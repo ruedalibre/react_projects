@@ -31,6 +31,9 @@ const FormularioTareas = ({tareas, cambiarTareas}) => {
                 }
             ]
         );
+        /* Uso este string vacío para que el campo de escribir 
+        nueva tarea quede limpio después de agregar una tarea nueva */
+        cambiarInputTarea('');
     }
     
     return (
