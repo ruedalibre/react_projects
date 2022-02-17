@@ -14,7 +14,7 @@ const App = () => {
       {
         id: 1,
         texto: 'Lavar la ropa',
-        completada: false
+        completada: true
       },
       {
         id: 2,
@@ -31,7 +31,7 @@ const App = () => {
       <Header/>
       <FormularioTareas tareas={tareas} cambiarTareas={cambiarTareas}/>
       {/* Aquí debo pasar la propiedad y el valor */}
-      <ListaTareas tareas={tareas}/>
+      <ListaTareas tareas={tareas} cambiarTareas={cambiarTareas}/>
     </div>
   );
 }

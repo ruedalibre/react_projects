@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faCheckSquare, faEdit, faTimes} from '@fortawesome/free-solid-svg-icons'
+import {faCheckSquare, faEdit, faSquare, faTimes} from '@fortawesome/free-solid-svg-icons'
 
-const Tarea = ({tarea}) => {
+const Tarea = ({tarea, toggleCompletada}) => {
     /* El valor por defecto del estado es false 
     para evitar que, al cargar la página, ingrese
     directamente a modo edición */ 
@@ -19,8 +19,13 @@ const Tarea = ({tarea}) => {
     return (
         <li className="lista-tareas__tarea">
             <FontAwesomeIcon 
-                icon={faCheckSquare}
+                /* Condicional: Dependiendo si la tarea 
+                esta completada o no, muestra el 
+                respectivo ícono */
+                icon={tarea.completada ? faCheckSquare : faSquare}
                 className="lista-tareas__icono lista-tareas__icono-check"
+                /* */
+                onClick={() => toggleCompletada(tarea.id)}
                 />
             <div className="lista-tareas__texto">
                 {/* Si useState es true, muestra este formulario */}
