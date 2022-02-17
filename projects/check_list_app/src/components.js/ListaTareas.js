@@ -25,6 +25,33 @@ const ListaTareas = ({tareas, cambiarTareas}) => {
         }));
     }
 
+    const editarTarea = (id, nuevoTexto) => {
+        cambiarTareas(tareas.map((tarea) => {
+            if(tarea.id === id){
+                /* Identifica la tarea por su id
+                y cambia el texto actual por el 
+                nuevo texto */
+                return {...tarea, texto: nuevoTexto}
+                }
+                return tarea;
+        }));
+    }
+
+    const borrarTarea = (id) => {
+        /* Uso el método filter para definir cuáles 
+        tareas va a volver a cargar y cuáles no */
+        cambiarTareas(tareas.filter((tarea) => {
+            /* De esta manera muestra en la lista 
+            únicamente las tareas que NO SON la que 
+            le estoy indicando, o sea, la que 
+            quiero borrar */
+            if(tarea.id !== id){
+                return tarea;
+                }
+                return;
+        }));
+    }
+
     return (
         <ul className="lista-tareas">
             {/* Aquí hago el llamado de las tareas. 
@@ -36,8 +63,11 @@ const ListaTareas = ({tareas, cambiarTareas}) => {
                             key={tarea.id}
                             tarea={tarea}
                             /* De esta manera ya puedo acceder 
-                            a la función de toggle */
+                            a las funciones de toggle y editar
+                            tarea*/
                             toggleCompletada={toggleCompletada}
+                            editarTarea={editarTarea}
+                            borrarTarea={borrarTarea}
                         />
             })
             /* Si no hay tareas guardadas, muestra el 

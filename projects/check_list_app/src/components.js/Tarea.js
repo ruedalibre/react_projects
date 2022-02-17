@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faCheckSquare, faEdit, faSquare, faTimes} from '@fortawesome/free-solid-svg-icons'
 
-const Tarea = ({tarea, toggleCompletada}) => {
+const Tarea = ({tarea, toggleCompletada, editarTarea, borrarTarea}) => {
     /* El valor por defecto del estado es false 
     para evitar que, al cargar la página, ingrese
     directamente a modo edición */ 
@@ -11,8 +11,12 @@ const Tarea = ({tarea, toggleCompletada}) => {
     cuando ingrese a editar el input, continúe estando allí 
     el texto visualizado previamente */
     const [nuevaTarea, cambiarNuevaTarea] = useState(tarea.texto);
+    /* Esta función maneja las acciones del botón actualizar tarea */
     const handleSubmit = (e) => {
         e.preventDefault();
+        /* Primero accede a la tarea por su id y luego 
+        le asigna la nueva tarea */
+        editarTarea(tarea.id, nuevaTarea);
         cambiarEditandoTarea(false);
     }
 
@@ -62,6 +66,7 @@ const Tarea = ({tarea, toggleCompletada}) => {
                 <FontAwesomeIcon 
                     icon={faTimes}
                     className="lista-tareas__icono lista-tareas__icono-accion"
+                    onClick={() => borrarTarea(tarea.id)}
                 />
             </div>
         </li>
