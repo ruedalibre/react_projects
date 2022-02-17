@@ -23,10 +23,12 @@ const App = () => {
     ]
   ); 
 
+  console.log(tareas);
+
   return (
     <div className="contenedor">
       <Header/>
-      <FormularioTareas/>
+      <FormularioTareas tareas={tareas} cambiarTareas={cambiarTareas}/>
     </div>
   );
 }
