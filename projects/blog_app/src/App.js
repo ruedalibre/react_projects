@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./componentes/Header";
 import Inicio from "./componentes/Inicio";
 import Blog from "./componentes/Blog";
+import Post from "./componentes/Post";
 import AcercaDe from "./componentes/AcercaDe";
 import styled from 'styled-components';
 
@@ -21,6 +22,10 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Inicio />} />
             <Route path="/blog" element={<Blog />} />
+            {/* Accedo de manera dinámica para los 
+            diferentes post del blog y también accedo
+             al componente Post */}
+            <Route path="/post/:id" element={<Post/>}/>
             <Route path="/acerca-de" element={<AcercaDe />} />
           </Routes>
         </Main>
