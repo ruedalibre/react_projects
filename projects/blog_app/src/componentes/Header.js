@@ -16,6 +16,10 @@ const Header = () => {
     )
 };
 
+/*-------------------ESTILOS--------------------------
+Tener presente qué tipo de elemento es cada etiqueta
+----------------------------------------------------*/
+
 const ContenedorHeader = styled.header`
     text-align: center;
     margin-bottom: 40px;
