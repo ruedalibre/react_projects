@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import { NavLink, Routes, Route } from "react-router-dom";
 import Inicio from "./componentes/Inicio";
 import Blog from "./componentes/Blog";
 import Tienda from "./componentes/Tienda";
 import Error404 from "./componentes/Error404";
+import Carrito from "./componentes/Carrito";
 
 const App = () => {
     /* Esta constante hace las veces de BD */
@@ -14,6 +15,10 @@ const App = () => {
       {id:3, nombre: 'Producto 3'},
       {id:4, nombre: 'Producto 4'}
   ];
+
+   /* El carrito necesita usar estados 
+    porque siempre está cambiando */
+    const [carrito, cambiarCarrito] = useState([]);
 
   return ( 
     <Contenedor>
@@ -27,17 +32,11 @@ const App = () => {
           <Route path="*" element={<Error404/>}/>
           <Route path="/" element={<Inicio />}/>
           <Route path="/blog" element={<Blog />}/>
-          <Route path="/tienda">
-            {/* Los productos entran por la App, los
-            recibe la Tienda y luego pasan a Productos
-            siempre entre paréntesis en cada componente
-            (ver Tienda y Productos) */}
-            <Tienda productos={productos}/>
-          </Route> 
+          <Route path="/tienda" element={<Tienda productos={productos}/>}/>
         </Routes>
       </main>
       <aside>
-        <h3>Sidebar</h3>
+        <Carrito carrito={carrito}/>
       </aside>
     </Contenedor>
    );
