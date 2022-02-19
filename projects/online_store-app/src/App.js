@@ -7,6 +7,14 @@ import Tienda from "./componentes/Tienda";
 import Error404 from "./componentes/Error404";
 
 const App = () => {
+    /* Esta constante hace las veces de BD */
+    const productos = [
+      {id:1, nombre: 'Producto 1'},
+      {id:2, nombre: 'Producto 2'},
+      {id:3, nombre: 'Producto 3'},
+      {id:4, nombre: 'Producto 4'}
+  ];
+
   return ( 
     <Contenedor>
       <Menu>
@@ -19,12 +27,13 @@ const App = () => {
           <Route path="*" element={<Error404/>}/>
           <Route path="/" element={<Inicio />}/>
           <Route path="/blog" element={<Blog />}/>
-          <Route path="/tienda" element={
-              <Tienda
-                productos={productos}
-                agregarProductosAlCarrito={}agregarProductosAlCarrito
-              />
-          }/>
+          <Route path="/tienda">
+            {/* Los productos entran por la App, los
+            recibe la Tienda y luego pasan a Productos
+            siempre entre paréntesis en cada componente
+            (ver Tienda y Productos) */}
+            <Tienda productos={productos}/>
+          </Route> 
         </Routes>
       </main>
       <aside>
