@@ -16,9 +16,63 @@ const App = () => {
       {id:4, nombre: 'Producto 4'}
   ];
 
-   /* El carrito necesita usar estados 
-    porque siempre está cambiando */
-    const [carrito, cambiarCarrito] = useState([]);
+  /* El carrito necesita usar estados porque siempre 
+   va a estar cambiando */
+  const [carrito, cambiarCarrito] = useState([]);
+
+  const agregarProductoAlCarrito = (idProductoAAgregar, nombre) => {
+    /* Creo un condicional para el caso en que aún no haya 
+    ningún producto agregado al carrito */
+    if(carrito.lenght === 0) {
+      cambiarCarrito([{
+        id: idProductoAAgregar, 
+        nombre: nombre, 
+        cantidad: 1
+    }]);
+    } else {
+      /* Luego reviso que el carrito no tenga el producto que quiero agregar.
+      Si ya está el producto, actualizo los valores. Si el producto no existe 
+      lo agrego al carrito.
+      Para poder editar el carrito debo clonarlo, lo cual me carga todos los 
+      productos actuales del carrito */
+      const nuevoCarrito = [...carrito];
+      /* Itero con filter para ver si el carrito ya tiene el id del 
+      producto que quiero agregar */
+      const yaEstaEnCarrito = nuevoCarrito.filter((productoDeCarrito) => {
+        return productoDeCarrito.id === idProductoAAgregar
+      }).length > 0;
+      /* Si el producto está en el arreglo, lo tengo que actualizar */
+      if(yaEstaEnCarrito){
+        /* Debo buscar la posición del id que coincide con el 
+        producto ingresado */
+        nuevoCarrito.forEach((productoDeCarrito, index) => {
+          if(productoDeCarrito.id === idProductoAAgregar) {
+            /* Si el producto ya está en el carrito, aumento 
+            la cantidad de veces que está el producto. */
+            const cantidad = nuevoCarrito[index].cantidad;
+            nuevoCarrito[index] = {
+              id: idProductoAAgregar, 
+              nombre: nombre, 
+              cantidad: cantidad +1 
+            }
+          }
+        });
+      } else {
+        /* Si el producto no está en el carrito, con push 
+        le agrego el nuevo producto al arreglo */
+        nuevoCarrito.push(
+          {
+            id: idProductoAAgregar, 
+            nombre: nombre,
+            cantidad: 1
+          }
+        );
+      }
+      /* Por último actualizo el carrito con la 
+      información actualizada */
+      cambiarCarrito(nuevoCarrito);
+    }
+  }
 
   return ( 
     <Contenedor>
@@ -32,7 +86,12 @@ const App = () => {
           <Route path="*" element={<Error404/>}/>
           <Route path="/" element={<Inicio />}/>
           <Route path="/blog" element={<Blog />}/>
-          <Route path="/tienda" element={<Tienda productos={productos}/>}/>
+          <Route path="/tienda" element={
+                  <Tienda
+                      productos={productos}
+                      agregarProductoAlCarrito={agregarProductoAlCarrito}
+                  />
+          } />
         </Routes>
       </main>
       <aside>
