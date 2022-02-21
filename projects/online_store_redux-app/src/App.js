@@ -6,6 +6,11 @@ import Blog from './componentes/Blog';
 import Tienda from './componentes/Tienda';
 import Error404 from './componentes/Error404';
 import Carrito from './componentes/Carrito';
+/* Importación para utilizar redux en la apliación */
+import {Provider} from 'react-redux';
+// createStore es una función de Redux
+import { createStore } from 'redux';
+import reducer from './reducers/tiendaReducer';
 
 const App = () => {
     const productos = [
@@ -16,10 +21,6 @@ const App = () => {
     ];
     
     const [carrito, cambiarCarrito] = useState([]);
-    // [
-    //     {id: 1, nombre: 'Producto 1', cantidad: 1},
-    //     {id: 2, nombre: 'Producto 2', cantidad: 2}
-    // ]
 
     const agregarProductoAlCarrito = (idProductoAAgregar, nombre) => {
         // Si el carrito no tiene elementos entonces agregamos uno.
@@ -67,31 +68,39 @@ const App = () => {
             cambiarCarrito(nuevoCarrito);
         }
     }
+    /* createStore es una función que edita los  
+    estados globales para que puedan ser accedidos 
+    desde cualquier parte del código*/
+    const store = createStore(reducer);
 
 	return (
-		<Contenedor>
-			<Menu>
-				<NavLink to="/">Inicio</NavLink>
-				<NavLink to="/blog">Blog</NavLink>
-				<NavLink to="/tienda">Tienda</NavLink>
-			</Menu>
-			<main>
-				<Routes>
-                    <Route path="*" element={<Error404 />}/>
-					<Route path="/" element={<Inicio />}/>
-					<Route path="/blog" element={<Blog />}/>
-					<Route path="/tienda" element={
-                        <Tienda 
-                            productos={productos} 
-                            agregarProductoAlCarrito={agregarProductoAlCarrito}
-                        />
-                    } />
-				</Routes>
-			</main>
-			<aside>
-                <Carrito carrito={carrito}/>
-			</aside>
-		</Contenedor>
+        /* Store es el alamacenamiento de los estados
+        globales que utiliza redux */
+        <Provider store={store}>
+            <Contenedor>
+                <Menu>
+                    <NavLink to="/">Inicio</NavLink>
+                    <NavLink to="/blog">Blog</NavLink>
+                    <NavLink to="/tienda">Tienda</NavLink>
+                </Menu>
+                <main>
+                    <Routes>
+                        <Route path="*" element={<Error404 />}/>
+                        <Route path="/" element={<Inicio />}/>
+                        <Route path="/blog" element={<Blog />}/>
+                        <Route path="/tienda" element={
+                            <Tienda 
+                                productos={productos} 
+                                agregarProductoAlCarrito={agregarProductoAlCarrito}
+                            />
+                        } />
+                    </Routes>
+                </main>
+                <aside>
+                    <Carrito carrito={carrito}/>
+                </aside>
+            </Contenedor>
+        </Provider>
 	);
 }
 
