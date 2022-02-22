@@ -1,4 +1,5 @@
-import React from "react";
+/* Me conecto al contexto mediante useContext */
+import React, {useContext} from "react";
 /* BrowserRouter va a gestionar toda la navegabilidad de la web */
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./componentes/Header";
@@ -8,19 +9,18 @@ import Post from "./componentes/Post";
 import AcercaDe from "./componentes/AcercaDe";
 import styled from 'styled-components';
 import Error404 from "./componentes/Error404";
+import { ContextoTema } from "./contextos/contextoTema";
 
 const App = () => {
-  /* Toda la aplicación dentro de las etiquetas de React Router
-    A su vez, todo el contenido del componente debe ir
-    siempre dentro de un contenedor div.
-    Todas las Route van dentro de una etiqueta general Routes
-    Puedo crear una ruta dentro de una sola etiqueta Route 
-    El path le dice a React cuál página debe cargar en cada div */
+    /* Para extraer el valor de {tema} debo 
+    poner su nombre entre llaves */
+  const {tema} = useContext(ContextoTema);
+  
   return (
     <BrowserRouter>
       <ContendorPrincipal>
-        <Header/>
-        <Main>
+        <Header />
+        <Main tema={tema}>
           <Routes>
             {/* El (*) indica que debe ir allí 
             en caso de que la ruta ingresada no 
@@ -47,6 +47,11 @@ const ContendorPrincipal = styled.div`
   `;
 
 const Main = styled.main`
+  /* Aplicación del contexto global en los estilos, 
+  accediendo a las propiedades (fuente) e indicando 
+  también el valor por defecto*/
+  font-size: ${props => props.tema ? props.tema.fuente + 'px' : '16px'};
+  text-align: ${props => props.tema ? props.tema.alineado : 'right'};
   background: #fff;
   padding: 40px;
   border-radius: 10px;

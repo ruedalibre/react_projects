@@ -1,8 +1,15 @@
+/* Importar el hook de useContext para 
+poder conectarme al contexto global */
 import React from "react";
 import posts from "../data/posts";
 import { NavLink } from "react-router-dom";
+/* Aquí entro directamente al contexto global */
+// import { ContextoTema } from "../contextos/contextoTema";
 
 const Blog = () => {
+    /* Para acceder al contexto y extraer su contenido:  */
+    // const hola = useContext(ContextoTema);
+
     return(
         <div>
             <h2>Blog</h2>
