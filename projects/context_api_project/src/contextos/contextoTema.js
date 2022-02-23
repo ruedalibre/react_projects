@@ -1,4 +1,4 @@
-/* ESTE ES EL ESTADO GLOBAL QUE VA A GUARDAR 
+/* ESTE ES EL ESTADO GLOBAL (CONTEXTO) QUE VA A GUARDAR 
 LA CONFIGURACIÓN DE LA PAGINA */
 import React, { useState } from "react";
 /* De esta forma ya queda creado EL CONTEXTO 
