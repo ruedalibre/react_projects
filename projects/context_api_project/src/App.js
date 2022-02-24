@@ -20,6 +20,8 @@ const App = () => {
     <BrowserRouter>
       <ContendorPrincipal>
         <Header />
+        {/* Como voy a aplicar el contexto global al Main, 
+        debo inyectarle sus propiedades */}
         <Main tema={tema}>
           <Routes>
             {/* El (*) indica que debe ir allí 
@@ -47,9 +49,9 @@ const ContendorPrincipal = styled.div`
   `;
 
 const Main = styled.main`
-  /* Aplicación del contexto global en los estilos, 
-  accediendo a las propiedades (fuente) e indicando 
-  también el valor por defecto*/
+  /* Mediante una función, aplico el contexto global 
+  en los estilos, accediendo a las propiedades e indicando 
+  también un valor por defecto*/
   font-size: ${props => props.tema ? props.tema.fuente + 'px' : '16px'};
   text-align: ${props => props.tema ? props.tema.alineado : 'right'};
   background: #fff;
