@@ -13,6 +13,9 @@ import { getFirestore } from "firebase/firestore"
 
 // Your web app's Firebase configuration
 /* ESTE OBJETO CONTINE LA CONFIGURACION DEL PROJECTO EN FIREBASE */
+/* Estas configuraciones fueron modificadas (.env.local) manualmente para garantizar s
+su seguridad al subirse a repositorios públicos. Ver video #63 del 
+curso React y Firebase de FalconMasters (Udemy)  */
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
