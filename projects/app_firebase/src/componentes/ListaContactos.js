@@ -43,7 +43,8 @@ const ListaContactos = () => {
         contactos guardados. Si no, no lo muestra. */
         contactos.length > 0 &&
         /* En este contenedor voy a cargar toda 
-        la lista de contactos */
+        la lista de contactos y creará un componente 
+        por cada usuario ingresado */
         <ContenedorContactos>
             {contactos.map((contacto) => (
                 <Contacto 
