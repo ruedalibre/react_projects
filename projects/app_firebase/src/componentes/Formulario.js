@@ -28,6 +28,7 @@ const Formulario = () => {
             /* Para indicar que quiero agreagar un usuario (documento)
             al hacer click al botón. De esta manera al app se comunica
             con Firebase y agrega el usuario a la DB */
+            
             /* Debo incluir await para que al app no limpie el input 
             hasta que no estemos seguros de que los datos ya ingresaron 
             a la base de datos */
