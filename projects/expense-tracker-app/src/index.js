@@ -34,7 +34,6 @@ const Index = () => {
       BrowserRouter y encierro todo dentro de un fragmento */}
       <Helmet>
         <link rel="shortcut icon" href={favicon} type="image/x-icon"/>
-        <title>Expense-Tracker</title>
       </Helmet>
       {/* Todo va encerrado en BrowserRouter, el cual manejará 
       las rutas entre páginas */}
