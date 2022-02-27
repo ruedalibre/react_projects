@@ -1,6 +1,7 @@
 import React from "react";
-import {Header, Titulo, ContenedorHeader, ContenedorBotones} from './../elementos/Header';
+import {Header, Titulo} from './../elementos/Header';
 import {Helmet} from "react-helmet";
+import BtnRegresar from "../elementos/BtnRegresar";
 
 const GastosPorCategoria = () => {
     return ( 
@@ -8,11 +9,11 @@ const GastosPorCategoria = () => {
             <Helmet>
                 <title>Expense-Tracker</title>
             </Helmet>
-
+            {/* En este caso no uso contenedor para los 
+            botones porque solo usaré un botón y el título */}
             <Header>
-                <ContenedorHeader>
-                    <Titulo>Gastos por Categoría</Titulo>
-                </ContenedorHeader>
+                <BtnRegresar />
+                <Titulo>Gastos por Categoría</Titulo>
             </Header>
        </>
     );
