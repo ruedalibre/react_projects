@@ -5,7 +5,7 @@ import { initializeApp } from "firebase/app";
 /* Import para iniciar Firestore */
 import { getFirestore } from "firebase/firestore";
 /* Import para iniciar el administrador de identidades de Firebase */
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 /* Estas líneas fueron modificadas con variables de ambiente para proteger la seguridad de la aplicación. El archivo .env.local debe
 estar en la raíz del proyecto */
@@ -18,7 +18,7 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APPID
 };
 
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 /* Para exportar las funciones de Firestore y Auth, primero 
 guardo las funciones en una variable */

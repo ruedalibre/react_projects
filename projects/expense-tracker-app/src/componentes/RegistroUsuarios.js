@@ -1,10 +1,14 @@
-import React, {useState} from "react";
-import { Helmet } from "react-helmet";
+import React, {useState} from 'react';
+import {Helmet} from 'react-helmet';
 import {Header, Titulo, ContenedorHeader} from './../elementos/Header';
 import Boton from './../elementos/Boton';
-import { Formulario, Input, ContenedorBoton} from './../elementos/ElementosDeFormulario';
+import {Formulario, Input, ContenedorBoton} from './../elementos/ElementosDeFormulario';
 import {ReactComponent as SvgLogin} from './../imagenes/registro.svg';
-import styled from "styled-components";
+import styled from 'styled-components';
+import {auth} from './../firebase/firebaseConfig';
+import {useNavigate} from 'react-router-dom';
+// import Alerta from './../elementos/Alerta';
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Svg = styled(SvgLogin)`
     width: 100%;
@@ -13,6 +17,7 @@ const Svg = styled(SvgLogin)`
 `;
 
 const RegistroUsuarios = () => {
+    const navigate = useNavigate();
     /* Debo definir un estado para cada input del registro */
     const [correo, establecerCorreo] = useState('');
     const [password, establecerPassword] = useState('');
@@ -36,8 +41,8 @@ const RegistroUsuarios = () => {
                 break;
         }
     } 
-    /* Esta es la función que va a manejar las acciones del envío de los datos del formulario */
-    const handleSubmit = (e) => {
+    /* Esta es la función que va a manejar las acciones del envío de los datos del formulario. Debe ser asíncrona porque debe manejar procesos que requieren diferentes comprobaciones de ejecución */
+    const handleSubmit = async (e) => {
         e.preventDefault();
         /* Para comprobar que el correo ingresado sea válido utilizo una expresión regular que toma en cuenta todas 
         las características que debe tener un correo */
@@ -59,8 +64,33 @@ const RegistroUsuarios = () => {
             console.log('Las contraseñas no coinciden');
             return;
         } 
-        /* Mensaje para registro exitoso */
-        console.log('Registro exitoso')
+         /* Esta es la función que usa Firebase para la 
+            creación de usuario con email y contraseña. 
+            Debe esperar a que el usuario quede registrado en la DB y, en caso de algún error, puede luego proceder a mostrarlo*/
+        try {
+            await createUserWithEmailAndPassword(auth, correo, password);
+            navigate('/');
+        } catch(error) {
+            console.log(error);
+                        
+            let mensaje;
+            /* Firebase cuenta con un listado de errores de registro que se pueden capturar con una variable, de manera que cuando se presente un error por parte del usuario, se el pueda dar un mensaje personalizado para que lo corrija de manera precisa */
+            switch(error.code) {
+                case 'auth/invalid-password':
+                    mensaje = 'La contraseña tiene que ser de al menos 6 caracteres.'
+                    break;
+                case 'auth/email-already-in-use':
+                    mensaje = 'Ya existe una cuenta con el correo electrónico proporcionado.'
+                break;
+                case 'auth/invalid-email':
+                    mensaje = 'El correo electrónico no es válido.'
+                break;
+                default:
+                    mensaje = 'Hubo un error al intentar crear la cuenta.'
+                break;
+            }
+            console.log(mensaje);
+        }
     }
 
     return ( 
