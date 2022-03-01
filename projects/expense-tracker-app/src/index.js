@@ -14,6 +14,7 @@ import RegistroUsuarios from './componentes/RegistroUsuarios';
 import {Helmet} from 'react-helmet';
 import favicon from './imagenes/logo.png';
 import Fondo from './elementos/Fondo';
+import {AuthProvider} from './contextos/AuthContext';
 
 
 /* La configuración por defecto fue cambiada, para mayor limpieza, 
@@ -35,22 +36,23 @@ const Index = () => {
       <Helmet>
         <link rel="shortcut icon" href={favicon} type="image/x-icon"/>
       </Helmet>
-      {/* Todo va encerrado en BrowserRouter, el cual manejará 
-      las rutas entre páginas */}
-      <BrowserRouter>
-        {/* A su vez, todos el diseño de la aplicación irá 
-        encerrado en un contenedor general */}
-        <Contenedor>
-          <Routes>
-            <Route path="/iniciar-sesion" element={<InicioSesion/>}/>
-            <Route path="/crear-cuenta" element={<RegistroUsuarios/>}/>
-            <Route path="/categorias" element={<GastosPorCategoria/>}/>
-            <Route path="/lista" element={<ListaDeGastos/>}/>
-            <Route path="/editar/:id" element={<EditarGasto/>}/>
-            <Route path="/" element={<App/>}/>
-          </Routes>
-        </Contenedor>
-      </BrowserRouter>
+      {/* Todo va encerrado por AuthProvider y BrowserRouter, los cuales manjean las autorizaciones y las rutas entre páginas respectivamente */}
+      <AuthProvider>
+        <BrowserRouter>
+          {/* A su vez, todos el diseño de la aplicación irá 
+          encerrado en un contenedor general */}
+          <Contenedor>
+            <Routes>
+              <Route path="/iniciar-sesion" element={<InicioSesion/>}/>
+              <Route path="/crear-cuenta" element={<RegistroUsuarios/>}/>
+              <Route path="/categorias" element={<GastosPorCategoria/>}/>
+              <Route path="/lista" element={<ListaDeGastos/>}/>
+              <Route path="/editar/:id" element={<EditarGasto/>}/>
+              <Route path="/" element={<App/>}/>
+            </Routes>
+          </Contenedor>
+        </BrowserRouter>
+      </AuthProvider>
 
       <Fondo/>
     </>
