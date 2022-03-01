@@ -7,7 +7,7 @@ import {ReactComponent as SvgLogin} from './../imagenes/registro.svg';
 import styled from 'styled-components';
 import {auth} from './../firebase/firebaseConfig';
 import {useNavigate} from 'react-router-dom';
-// import Alerta from './../elementos/Alerta';
+import Alerta from './../elementos/Alerta';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Svg = styled(SvgLogin)`
@@ -22,6 +22,10 @@ const RegistroUsuarios = () => {
     const [correo, establecerCorreo] = useState('');
     const [password, establecerPassword] = useState('');
     const [password2, establecerPassword2] = useState('');
+    /* El estado por defecto de la alerta debe ser false para que la alerta no se dispare cada vez que se abra la página  */
+    const [estadoAlerta, cambiarEstadoAlerta] = useState(false);
+    
+    const [alerta, cambiarAlerta] =useState({});
     /* Y esta es la función que va a aplicar el cambio de estado */
     /* El parámetro (e) hace referencia al evento, es decir, 
     al elemento que recibió el cambio en el input. Luego puedo 
@@ -44,24 +48,39 @@ const RegistroUsuarios = () => {
     /* Esta es la función que va a manejar las acciones del envío de los datos del formulario. Debe ser asíncrona porque debe manejar procesos que requieren diferentes comprobaciones de ejecución */
     const handleSubmit = async (e) => {
         e.preventDefault();
+        cambiarEstadoAlerta(false);
+        /* Como son varios mensajes de alerta, el valor debe quedar vacío y solo tomará un valor según el tipo de alerta que se dispare */
+        cambiarAlerta({});
         /* Para comprobar que el correo ingresado sea válido utilizo una expresión regular que toma en cuenta todas 
         las características que debe tener un correo */
         const expresionRegular = /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
         /* En caso de que el input no coincida con la expresión */
         if( !expresionRegular.test(correo) ) {
-            console.log("Por favor ingresa un correo válido");
-            /* El return lo uso para salir de la función en caso 
-            de que se cumpla la condición y no continúe evaluando las demás porque ya no sería necesario */
+            /* La alerta cambia a su estado activo únicamente cuando los datos ingresados presentan problemas */
+            cambiarEstadoAlerta(true);
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje: 'Por favor ingrese un correo electrónico válido'
+            })
+            /* El return lo uso para salir de la función en caso de que se cumpla la condición y no continúe evaluando las demás porque ya no sería necesario */
             return;
         }
         /* En caso de que el usuario no ingrese ningún dato en  cualquiera de los input del formulario */
         if(correo === '' || password === '' || password2 === '') {
-            console.log('Por favor ingresa todos los datos');
+            cambiarEstadoAlerta(true);
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje: 'Por favor ingresa todos los datos'
+            });
             return;
         }
         /* Verifico que la contraseña y su confirmación coincidan  */
         if(password !== password2) {
-            console.log('Las contraseñas no coinciden');
+            cambiarEstadoAlerta(true);
+            cambiarAlerta({
+                tipo: 'error',
+                mensaje: 'Las contraseñas no coinciden'
+            });
             return;
         } 
          /* Esta es la función que usa Firebase para la 
@@ -71,7 +90,7 @@ const RegistroUsuarios = () => {
             await createUserWithEmailAndPassword(auth, correo, password);
             navigate('/');
         } catch(error) {
-            console.log(error);
+            cambiarEstadoAlerta(true);
                         
             let mensaje;
             /* Firebase cuenta con un listado de errores de registro que se pueden capturar con una variable, de manera que cuando se presente un error por parte del usuario, se el pueda dar un mensaje personalizado para que lo corrija de manera precisa */
@@ -89,7 +108,7 @@ const RegistroUsuarios = () => {
                     mensaje = 'Hubo un error al intentar crear la cuenta.'
                 break;
             }
-            console.log(mensaje);
+            cambiarAlerta({tipo: 'error', mensaje: mensaje});
         }
     }
 
@@ -138,6 +157,12 @@ const RegistroUsuarios = () => {
                 </ContenedorBoton>
             </Formulario>
 
+            <Alerta 
+                tipo={alerta.tipo}
+                mensaje={alerta.mensaje}
+                estadoAlerta={estadoAlerta}
+                cambiarEstadoAlerta={cambiarEstadoAlerta}
+            />
         </>
      );
 }
