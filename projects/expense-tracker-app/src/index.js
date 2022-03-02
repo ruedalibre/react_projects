@@ -15,6 +15,7 @@ import {Helmet} from 'react-helmet';
 import favicon from './imagenes/logo.png';
 import Fondo from './elementos/Fondo';
 import {AuthProvider} from './contextos/AuthContext';
+import RutaPrivada from './componentes/RutaPrivada';
 
 
 /* La configuración por defecto fue cambiada, para mayor limpieza, 
@@ -43,12 +44,33 @@ const Index = () => {
           encerrado en un contenedor general */}
           <Contenedor>
             <Routes>
+
+              {/* RUTAS PÚBLICAS */}
               <Route path="/iniciar-sesion" element={<InicioSesion/>}/>
               <Route path="/crear-cuenta" element={<RegistroUsuarios/>}/>
-              <Route path="/categorias" element={<GastosPorCategoria/>}/>
-              <Route path="/lista" element={<ListaDeGastos/>}/>
-              <Route path="/editar/:id" element={<EditarGasto/>}/>
-              <Route path="/" element={<App/>}/>
+              
+              {/* RUTAS PRIVADAS encapsulan el Componente dentro de la RutaPrivada */}
+              <Route path="/categorias" element={
+                <RutaPrivada>
+                  <GastosPorCategoria />
+                </RutaPrivada>
+              }/>
+              <Route path="/lista" element={
+                <RutaPrivada>
+                  <ListaDeGastos />
+                </RutaPrivada>
+              }/>
+              <Route path="/editar" element={
+                <RutaPrivada>
+                  <EditarGasto />
+                </RutaPrivada>
+              }/>
+              <Route path="/" element={
+                <RutaPrivada>
+                  <App />
+                </RutaPrivada>
+              }/>
+            
             </Routes>
           </Contenedor>
         </BrowserRouter>
