@@ -7,11 +7,14 @@ import { ContenedorBotones } from "../elementos/Header";
 import {ContenedorFiltros, Formulario, Input, InputGrande, ContenedorBoton} from './../elementos/ElementosDeFormulario';
 import Boton from "../elementos/Boton";
 import {ReactComponent as IconoPlus} from './../imagenes/plus.svg';
+import SelectCategorias from "./SelectCategorias";
 
 const FormularioGasto = () => {
     /* Función que administra el valor de los inputs dentro de un estado */
     const [inputDescripcion, cambiarInputDescripcion] = useState('');
     const [inputCantidad, cambiarInputCantidad] = useState('');
+    /* Esta función se encarga de dejar visible la categoría seleccionada en el menú desplegable. Por defecto, el menú va a mostrar la categoría Hogar */
+    const [categoria, cambiarCategoria] = useState('hogar');
 
     const handleChange = (e) => {
         /* El condicional sirve para validar si estoy en modo edición de los input y, si es así, habilita el celda del input para que el usuario pueda ingresar los valores*/
@@ -26,8 +29,10 @@ const FormularioGasto = () => {
     return ( 
         <Formulario>
             <ContenedorFiltros>
-                <p>Select</p>
-                <p>Day Picker</p>
+                <SelectCategorias
+                    categoria={categoria}
+                    cambiarCategoria={cambiarCategoria}
+                />
             </ContenedorFiltros>
 
             <div>
