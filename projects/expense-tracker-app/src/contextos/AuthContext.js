@@ -19,7 +19,7 @@ const AuthProvider = ({children}) => {
     /* Este efecto ejecuta la comprobación una sola vez */
     useEffect(() => {
         /* Compruebo si hay un usuario */
-        const cancelarSuscripcion = onAuthStateChanged((auth, usuario) => {
+        const cancelarSuscripcion = onAuthStateChanged(auth, (usuario) => {
             cambiarUsuario(usuario);
             cambiarCargando(false);
         });

@@ -100,13 +100,13 @@ const RegistroUsuarios = () => {
                     break;
                 case 'auth/email-already-in-use':
                     mensaje = 'Ya existe una cuenta con el correo electrónico proporcionado.'
-                break;
+                    break;
                 case 'auth/invalid-email':
                     mensaje = 'El correo electrónico no es válido.'
-                break;
+                    break;
                 default:
                     mensaje = 'Hubo un error al intentar crear la cuenta.'
-                break;
+                    break;
             }
             cambiarAlerta({tipo: 'error', mensaje: mensaje});
         }
@@ -153,7 +153,7 @@ const RegistroUsuarios = () => {
                 <ContenedorBoton>
                     {/* El argumento de botón "primario"
                     está definido en Boton.js */}
-                    <Boton as="button" type="submit " primario>Crear Cuenta</Boton>
+                    <Boton as="button" type="submit" primario>Crear Cuenta</Boton>
                 </ContenedorBoton>
             </Formulario>
 
