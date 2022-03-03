@@ -8,6 +8,7 @@ import {ContenedorFiltros, Formulario, Input, InputGrande, ContenedorBoton} from
 import Boton from "../elementos/Boton";
 import {ReactComponent as IconoPlus} from './../imagenes/plus.svg';
 import SelectCategorias from "./SelectCategorias";
+import DatePicker from './DatePicker';
 
 const FormularioGasto = () => {
     /* Función que administra el valor de los inputs dentro de un estado */
@@ -15,7 +16,8 @@ const FormularioGasto = () => {
     const [inputCantidad, cambiarInputCantidad] = useState('');
     /* Esta función se encarga de dejar visible la categoría seleccionada en el menú desplegable. Por defecto, el menú va a mostrar la categoría Hogar */
     const [categoria, cambiarCategoria] = useState('hogar');
-
+    /* Esta función captura la fecha del Date Picker para luego pasarsela a la DB. El valor por defecto de la fecha será al fecha actual, la cual se genera con new Date */
+    const [fecha, cambiarFecha] = useState(new Date());
     const handleChange = (e) => {
         /* El condicional sirve para validar si estoy en modo edición de los input y, si es así, habilita el celda del input para que el usuario pueda ingresar los valores*/
         if(e.target.name === 'descripcion') {
@@ -26,6 +28,8 @@ const FormularioGasto = () => {
         }
     }
 
+    console.log(fecha);
+
     return ( 
         <Formulario>
             <ContenedorFiltros>
@@ -33,6 +37,7 @@ const FormularioGasto = () => {
                     categoria={categoria}
                     cambiarCategoria={cambiarCategoria}
                 />
+                <DatePicker fecha={fecha} cambiarFecha={cambiarFecha}/>
             </ContenedorFiltros>
 
             <div>
