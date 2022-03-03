@@ -8,6 +8,7 @@ const Boton = styled(Link)`
     /* El uso de props es para acceder a las propiedades del botón y 
     poder cambiar su apariencia de acuerdo a su estado actual */
     background: ${(props) => props.primario ? '#5B69E2' : '#000'};
+    
     /* En este caso cambia la apariencia del botón dependiendo 
     si está acompañado o no de un ícono */
     width: ${(props) => props.conIcono ? '15.62rem' : 'auto'}; /* 250px */
@@ -24,10 +25,9 @@ const Boton = styled(Link)`
     text-decoration: none;
     
     /* Estas dos líneas son para organizar el texto del botón 
-    a al izquierda y el ícono a la derecha*/
+    a al izquierda y el ícono a la derecha */
     display: inline-flex;
     justify-content: space-between;
-    
     align-items: center;
     outline: none;
     
