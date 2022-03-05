@@ -16,6 +16,7 @@ import favicon from './imagenes/logo.png';
 import Fondo from './elementos/Fondo';
 import {AuthProvider} from './contextos/AuthContext';
 import RutaPrivada from './componentes/RutaPrivada';
+import {TotalGastadoProvider} from './contextos/TotalGastadoEnElMesContext';
 
 
 /* La configuración por defecto fue cambiada, para mayor limpieza, 
@@ -39,41 +40,44 @@ const Index = () => {
       </Helmet>
       {/* Todo va encerrado por AuthProvider y BrowserRouter, los cuales manjean las autorizaciones y las rutas entre páginas respectivamente */}
       <AuthProvider>
-        <BrowserRouter>
+        {/* Encapsulo todo en esta etiquete para que todos los componentes interos tengan acceso a la barra de total gastado */}
+        <TotalGastadoProvider>
+          <BrowserRouter>
           {/* A su vez, todos el diseño de la aplicación irá 
           encerrado en un contenedor general */}
-          <Contenedor>
-            <Routes>
+            <Contenedor>
+              <Routes>
 
-              {/* RUTAS PÚBLICAS */}
-              <Route path="/iniciar-sesion" element={<InicioSesion/>}/>
-              <Route path="/crear-cuenta" element={<RegistroUsuarios/>}/>
-              
-              {/* RUTAS PRIVADAS encapsulan el Componente dentro de la RutaPrivada */}
-              <Route path="/categorias" element={
+                {/* RUTAS PÚBLICAS */}
+                <Route path="/iniciar-sesion" element={<InicioSesion/>}/>
+                <Route path="/crear-cuenta" element={<RegistroUsuarios/>}/>
+                
+                {/* RUTAS PRIVADAS encapsulan el Componente dentro de la RutaPrivada */}
+                <Route path="/categorias" element={
+                  <RutaPrivada>
+                    <GastosPorCategoria />
+                  </RutaPrivada>
+                }/>
+                <Route path="/lista" element={
+                  <RutaPrivada>
+                    <ListaDeGastos />
+                  </RutaPrivada>
+                }/>
+                {/* Para poder editar el elemento le tengo que pasar su id */}
+                <Route path="/editar/:id" element={
                 <RutaPrivada>
-                  <GastosPorCategoria />
+                  <EditarGasto />
                 </RutaPrivada>
-              }/>
-              <Route path="/lista" element={
-                <RutaPrivada>
-                  <ListaDeGastos />
-                </RutaPrivada>
-              }/>
-              {/* Para poder editar el elemento le tengo que pasar su id */}
-              <Route path="/editar/:id" element={
-              <RutaPrivada>
-                <EditarGasto />
-              </RutaPrivada>
-              }/>
-              <Route path="/" element={
-                <RutaPrivada>
-                  <App />
-                </RutaPrivada>
-              }/>
-            </Routes>
-          </Contenedor>
-        </BrowserRouter>
+                }/>
+                <Route path="/" element={
+                  <RutaPrivada>
+                    <App />
+                  </RutaPrivada>
+                }/>
+              </Routes>
+            </Contenedor>
+          </BrowserRouter>
+        </TotalGastadoProvider>
       </AuthProvider>
       <Fondo/>
     </>
