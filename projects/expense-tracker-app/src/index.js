@@ -60,22 +60,21 @@ const Index = () => {
                   <ListaDeGastos />
                 </RutaPrivada>
               }/>
-              <Route path="/editar" element={
-                <RutaPrivada>
-                  <EditarGasto />
-                </RutaPrivada>
+              {/* Para poder editar el elemento le tengo que pasar su id */}
+              <Route path="/editar/:id" element={
+              <RutaPrivada>
+                <ListaDeGastos />
+              </RutaPrivada>
               }/>
               <Route path="/" element={
                 <RutaPrivada>
                   <App />
                 </RutaPrivada>
               }/>
-            
             </Routes>
           </Contenedor>
         </BrowserRouter>
       </AuthProvider>
-
       <Fondo/>
     </>
    );

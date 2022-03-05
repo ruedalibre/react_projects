@@ -2,7 +2,7 @@
     ESTE ES EL FORMULARIO PARA AGREGAR LOS
         GASTOS A LA APLICACION
 -------------------------------------------- */
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { ContenedorBotones } from "../elementos/Header";
 import {ContenedorFiltros, Formulario, Input, InputGrande, ContenedorBoton} from './../elementos/ElementosDeFormulario';
 import Boton from "../elementos/Boton";
@@ -15,8 +15,9 @@ import getUnixTime from "date-fns/getUnixTime";
 import agregarGasto from "../firebase/agregarGasto";
 import { useAuth } from './../contextos/AuthContext';
 import Alerta from './../elementos/Alerta';
+import { useNavigate } from "react-router-dom";
 
-const FormularioGasto = () => {
+const FormularioGasto = ({gasto}) => {
     /* -------------------------------------------------
                 ESTADOS DEL COMPONENTE 
     ---------------------------------------------------*/
@@ -31,10 +32,27 @@ const FormularioGasto = () => {
     const [estaodAlerta, cambiarEstadoAlerta] = useState(false);
     const [alerta, cambiarAlerta] = useState({});
     
-    
     /* Con este import accedo al usuario que está usando la app */
     const {usuario} = useAuth();
+    const navigate = useNavigate(); 
     
+
+    useEffect(() => {
+        /* Compruebo si ya existe algún gasto y, si es así, habilito todos las propiedades para editar el gasto */
+        if(gasto){
+            /* Validar que el gasto a editar tenga un id identico al del usuario actual, para evitar que sea asignado a otro usuario */
+            if(gasto.data().uidUsuario === usuario.uid){
+                cambiarCategoria(gasto.data().categoria);
+                cambiarFecha(fromUnixTime(gasto.data().fecha));
+                cambiarInputDescripcion(gasto.data().descripcion);
+                cambiarInputCantidad(gasto.data().cantidad); 
+            } else {
+                navigate('/lista');
+            }
+        }
+
+    }, [gasto, usuario, navigate]); /* ----> para que se ejectue una sola vez, o cuando las dependencias cambien */
+
     const handleChange = (e) => {
         /* El condicional sirve para validar si estoy en modo edición de los input y, si es así, habilita el celda del input para que el usuario pueda ingresar los valores*/
         if(e.target.name === 'descripcion') {
