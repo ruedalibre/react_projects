@@ -2,12 +2,10 @@ import React, { useEffect } from "react";
 import {Header, Titulo} from './../elementos/Header';
 import {Helmet} from "react-helmet";
 import BtnRegresar from "../elementos/BtnRegresar";
-import {useAuth} from './../contextos/AuthContext';
 import BarraTotalGastado from "./BarraTotalGastado";
 import useObtenerGastos from "../hooks/useObtenerGastos";
 /* Imports para los estilos de todos los elementos de la lista de gastos */
-import { Lista, ElementoLista, ListaDeCategorias,
-	ElementoListaCategorias, Categoria, Descripcion,
+import { Lista, ElementoLista, Categoria, Descripcion,
 	Valor, Fecha, ContenedorBotones, BotonAccion,
 	BotonCargarMas, ContenedorBotonCentral,
 	ContenedorSubtitulo, Subtitulo } from "../elementos/ElementosDeLista";
@@ -21,10 +19,11 @@ import Boton from './../elementos/Boton';
 import {format, fromUnixTime} from 'date-fns';
 /* import para obtener la fecha en español */
 import {es} from 'date-fns/locale';
+import borrarGasto from "../firebase/borrarGasto";
 
 /* Aquí accedo al contexto global y puedo extraer sus valores true, false y null según sea el caso y usar condicionales para mostrar u ocultar el contenido de la app */
 const ListaDeGastos = () => {   
-    const [gastos] = useObtenerGastos();
+    const [gastos, obtenerMasGastos, hayMasPorCargar] = useObtenerGastos();
 
     /* Para dar formatear a la fecha, pasando de UnixTime a Javascript */
     const formatearFecha = (fecha) => {
@@ -80,7 +79,7 @@ const ListaDeGastos = () => {
                                     <BotonAccion as={Link} to={`/editar/${gasto.id}`}>
                                         <IconoEditar/>
                                     </BotonAccion>
-                                    <BotonAccion>
+                                    <BotonAccion onClick={() => borrarGasto(gasto.id)}>
                                         <IconoBorrar/>
                                     </BotonAccion>
                                 </ContenedorBotones>
@@ -88,15 +87,20 @@ const ListaDeGastos = () => {
                         </div>
                     );
                 })}
-                <ContenedorBotonCentral>
-                    <BotonCargarMas>Cargar más</BotonCargarMas>
-                </ContenedorBotonCentral>
+                {hayMasPorCargar &&
+                    <ContenedorBotonCentral>
+                        <BotonCargarMas onClick={() => obtenerMasGastos()}>Cargar más</BotonCargarMas>
+                    </ContenedorBotonCentral>
+                
+                }
+                
                 {/* Si la lista de gastos está vacía, muestra este mensaje */}
                 {gastos.length === 0 &&
                     <ContenedorSubtitulo>
                         <Subtitulo>No hay gastos por mostrar</Subtitulo>
                         <Boton as={Link} to="/">Agregar Gasto</Boton>
-                    </ContenedorSubtitulo>}
+                    </ContenedorSubtitulo>
+                }
             </Lista>
 
             <BarraTotalGastado/>
