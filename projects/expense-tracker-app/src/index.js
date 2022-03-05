@@ -63,7 +63,7 @@ const Index = () => {
               {/* Para poder editar el elemento le tengo que pasar su id */}
               <Route path="/editar/:id" element={
               <RutaPrivada>
-                <ListaDeGastos />
+                <EditarGasto />
               </RutaPrivada>
               }/>
               <Route path="/" element={
