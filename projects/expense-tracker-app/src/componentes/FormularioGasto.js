@@ -3,7 +3,6 @@
         GASTOS A LA APLICACION
 -------------------------------------------- */
 import React, {useState, useEffect} from "react";
-import { ContenedorBotones } from "../elementos/Header";
 import {ContenedorFiltros, Formulario, Input, InputGrande, ContenedorBoton} from './../elementos/ElementosDeFormulario';
 import Boton from "../elementos/Boton";
 import {ReactComponent as IconoPlus} from './../imagenes/plus.svg';
