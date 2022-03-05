@@ -16,6 +16,7 @@ import agregarGasto from "../firebase/agregarGasto";
 import { useAuth } from './../contextos/AuthContext';
 import Alerta from './../elementos/Alerta';
 import { useNavigate } from "react-router-dom";
+import editarGasto from "../firebase/editarGasto";
 
 const FormularioGasto = ({gasto}) => {
     /* -------------------------------------------------
@@ -40,7 +41,7 @@ const FormularioGasto = ({gasto}) => {
     useEffect(() => {
         /* Compruebo si ya existe algún gasto y, si es así, habilito todos las propiedades para editar el gasto */
         if(gasto){
-            /* Validar que el gasto a editar tenga un id identico al del usuario actual, para evitar que sea asignado a otro usuario */
+            /* Valido que el gasto a editar tenga un id identico al del usuario actual, para que ni sea asignado a otro usuario */
             if(gasto.data().uidUsuario === usuario.uid){
                 cambiarCategoria(gasto.data().categoria);
                 cambiarFecha(fromUnixTime(gasto.data().fecha));
@@ -74,31 +75,46 @@ const FormularioGasto = ({gasto}) => {
         if(inputDescripcion !== '' && inputCantidad !== '') {
             /* También debo comprobar que la cantidad ingresada sea válida para que el parseFloat la pueda procesar */
             if(cantidad) {
-                agregarGasto({
-                    /* Aquí creo el objeto con todas sus propiedades */
-                    categoria: categoria,
-                    descripcion: inputDescripcion,
-                    cantidad: inputCantidad,
-                    /* La fecha se transorma a formato UnixTime antes de pasarla a la base de datos */
-                    fecha: getUnixTime(fecha),
-                    /* Para que la app sepa a cuál usuario le debe agregar el objeto, debe tener acceso a su id universal (uid) creado mediante AuthContext ---> useAuth */
-                    uidUsuario: usuario.uid
-                })
-                /* Cuando se valide que todos los valores enviado a al db son correctos, reinicio el formulario a su estado por defecto para seguir agregando elementos */
-                .then(() => {
-                    cambiarCategoria('hogar');
-                    cambiarInputDescripcion('');
-                    cambiarInputCantidad('');
-                    cambiarFecha(new Date());
-                    /* La alerta indica que los datos fueron ingresados correctamente */
-                    cambiarEstadoAlerta(true);
-                    cambiarAlerta({tipo: 'exito', mensaje: 'El gasto fue agregado correctamente'})
-                })
-                /* En caso de que haya un error inesperado al conectarse con la db */
-                .catch((error) => {
-                    cambiarEstadoAlerta(true);
-                    cambiarAlerta({tipo: 'error', mensaje: 'Hubo un problema al intentar agregar tu gasto'})
-                })
+                if(gasto) {
+                    editarGasto({
+                        id: gasto.id,
+                        categoria: categoria,
+                        descripcion: inputDescripcion,
+                        cantidad: cantidad,
+                        fecha: getUnixTime(fecha)
+                    }).then(() => {
+                        navigate('/lista');
+                    }).catch((error) => {
+                        console.log(error);
+                    })
+                } else {
+                    agregarGasto({
+                        /* Aquí creo el objeto con todas sus propiedades */
+                        categoria: categoria,
+                        descripcion: inputDescripcion,
+                        cantidad: inputCantidad,
+                        /* La fecha se transorma a formato UnixTime antes de pasarla a la base de datos */
+                        fecha: getUnixTime(fecha),
+                        /* Para que la app sepa a cuál usuario le debe agregar el objeto, debe tener acceso a su id universal (uid) creado mediante AuthContext ---> useAuth */
+                        uidUsuario: usuario.uid
+                    })
+                    /* Cuando se valide que todos los valores enviado a al db son correctos, reinicio el formulario a su estado por defecto para seguir agregando elementos */
+                    .then(() => {
+                        cambiarCategoria('hogar');
+                        cambiarInputDescripcion('');
+                        cambiarInputCantidad('');
+                        cambiarFecha(new Date());
+                        /* La alerta indica que los datos fueron ingresados correctamente */
+                        cambiarEstadoAlerta(true);
+                        cambiarAlerta({tipo: 'exito', mensaje: 'El gasto fue agregado correctamente'})
+                    })
+                    /* En caso de que haya un error inesperado al conectarse con la db */
+                    .catch((error) => {
+                        cambiarEstadoAlerta(true);
+                        cambiarAlerta({tipo: 'error', mensaje: 'Hubo un problema al intentar agregar tu gasto'})
+                    })
+                }
+               
             } else {
                 cambiarEstadoAlerta(true);
                 cambiarAlerta({tipo: 'error', mensaje: 'El valor que ingresaste no es correcto'})
@@ -123,7 +139,6 @@ const FormularioGasto = ({gasto}) => {
                 <Input
                     type="text"
                     name="descripcion"
-                    id="descripcion"
                     placeholder="Descripción"
                     value={inputDescripcion}
                     onChange={handleChange}
@@ -131,19 +146,17 @@ const FormularioGasto = ({gasto}) => {
                 <InputGrande
                     type="text"
                     name="cantidad"
-                    id="cantidad"
                     placeholder="$0.00"
                     value={inputCantidad}
                     onChange={handleChange}
                 />
-
             </div>
-            <ContenedorBotones>
-                {/* Debo pasar el parámetro "button" porque, por defecto, el botón tiene como valor un link (ver Boton) */}
-                <Boton as="button" primario conIcono type="submit">
-                    Agregar Gasto <IconoPlus />
+            <ContenedorBoton>
+                {/* Debo pasar el parámetro "button" porque, por defecto, el botón tiene como valor un link (ver Boton). Valida si se está agregando o editando un gasto para mostrar el respectivo botón */}
+                <Boton as="button" primario conIcono type="submit">{gasto ? 'Editar Gasto' : 'Agregar Gasto'} 
+                <IconoPlus />
                 </Boton>
-            </ContenedorBotones>
+            </ContenedorBoton>
             {/* La alerta se debe incluir en los elementos del formulario, así este desactivada por defecto */}
             <Alerta 
                 tipo={alerta.tipo}
