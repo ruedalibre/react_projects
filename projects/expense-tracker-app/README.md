@@ -5,17 +5,13 @@
 
 Description: This app allows users to keep track of their daily expenses and obtain the total ammount expent in the month. 
 
-Users can add different items to the data base specifiying description of the expense, date, category and value. 
+Users can add different items to the data base by specifiying description of the expense, date, category and value. 
 There are serveral categories they can choose from, and all the information is listed by date and category.
 
 All data is stored remotely using Cloud Firestore.
 This app is has responsive design and is accesible in this link:  
 
 https://expend-tracker-app.web.app/
-
-
-
-
 
 
 
