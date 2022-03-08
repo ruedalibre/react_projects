@@ -55,8 +55,8 @@ const useObtenerGastos = () => {
 
         const unsuscribe = onSnapshot(consulta, (snapshot) => {
             /* Si la lista tiene ítems, necesito acceder al último gasto de la vista actual para después indicarle a la app que la lista de gastos de la página siguiente continúa después de ese gasto */
-            if(snapshot.docs.lenght > 0) {
-                cambiarUltimoGasto(snapshot.docs[snapshot.docs.lenght -1]);
+            if(snapshot.docs.length > 0) {
+                cambiarUltimoGasto(snapshot.docs[snapshot.docs.length -1]);
                 cambiarHayMasPorCargar(true);
             } else {
                 cambiarHayMasPorCargar(false);
