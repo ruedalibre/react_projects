@@ -29,7 +29,7 @@ const FormularioGasto = ({gasto}) => {
     /* Esta función captura la fecha del Date Picker para luego pasarsela a la DB. El valor por defecto de la fecha será al fecha actual, la cual se genera con new Date */
     const [fecha, cambiarFecha] = useState(new Date());
     /* Agrego los dos estados necesarios para mostrar la alerta del formulario */
-    const [estaodAlerta, cambiarEstadoAlerta] = useState(false);
+    const [estadoAlerta, cambiarEstadoAlerta] = useState(false);
     const [alerta, cambiarAlerta] = useState({});
     
     /* Con este import accedo al usuario que está usando la app */
@@ -160,7 +160,7 @@ const FormularioGasto = ({gasto}) => {
             <Alerta 
                 tipo={alerta.tipo}
                 mensaje={alerta.mensaje}
-                estadoAlerta={estaodAlerta}
+                estadoAlerta={estadoAlerta}
                 cambiarEstadoAlerta={cambiarEstadoAlerta}
             />       
         </Formulario>
