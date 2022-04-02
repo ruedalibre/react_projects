@@ -97,7 +97,7 @@ const FormularioGasto = ({gasto}) => {
                         /* Para que la app sepa a cuál usuario le debe agregar el objeto, debe tener acceso a su id universal (uid) creado mediante AuthContext ---> useAuth */
                         uidUsuario: usuario.uid
                     })
-                    /* Cuando se valide que todos los valores enviado a al db son correctos, reinicio el formulario a su estado por defecto para seguir agregando elementos */
+                    /* Cuando se valide que todos los valores enviado a la DB son correctos, reinicio el formulario a su estado por defecto para seguir agregando elementos */
                     .then(() => {
                         cambiarCategoria('hogar');
                         cambiarInputDescripcion('');
